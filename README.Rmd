@@ -1,0 +1,44 @@
+---
+title: "README"
+author: "Roel M. Hogervorst"
+date: "January 17, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+In this project I'm trying to answer the question:
+
+> could we dig up Friesland (or any other Dutch province) and float it away?
+
+![an image of the Netherlands without Friesland]()
+
+You might think: "Where did you get that ridiculous idea from?".
+
+Friesland is one of the provinces of the Netherlands. 
+The Frisians have a distinct culture and (internationally recognized and also official) language. 
+Every once in a while when the newspapers have nothing else to record they will try to sensationalize news from 
+Friesland. And sometimes that leads to someone saying: "why don't we just dig the province out and float it away?" [1].
+
+And although the idea is ridiculous, it got me thinking...
+
+Can it be done? 
+
+So today we will determine:
+
+- Can we dig away and float an entire province
+- how long would it take and how much would it cost?
+- if we don't float it away, can we make a mountain for skiing?
+
+
+
+
+
+
+[1]: It's better in Dutch: "waarom steken we die provincie niet gewoon af en laten we die wegdrijven?"
+
+
+
