@@ -106,7 +106,7 @@ plot_netherlands <- function(province, movement, filename){
     {move_province(provincename = province, movement = movement) %>% 
         ggplot()+
         geom_sf(aes(fill = NAME_1),color = "grey50", alpha = 3/4)+
-        geom_text_repel(aes(X,Y, label = NAME_1), size = 7)+
+        geom_text(aes(X,Y, label = NAME_1), size = 6)+
         lims(x = c(3.2,7.1), y = c(50.8,55))+
         labs(x="", y = "", caption = "shapefiles from www.gadm.org", title = "Floating Friesland")+
         dutchmasters_fill("little_street")+
@@ -128,8 +128,8 @@ plot_friesland_over_range <- function(basename = "plot", movement_matrix, debug 
         mutate(rownumber = row_number(),
                 name = paste0(name, rownumber))
     for (i in actionsframe$rownumber) {
-        plot_netherlands("Friesland", c(actionsframe$x[[i]], actionsframe$y[[i]]), paste0(actionsframe$name[[i]],".png"))
-        if(debug){ message("plotting ",actionsframe$name[[1]], "with " ,c(actionsframe$x[[i]], actionsframe$y[i]))}
+        suppressWarnings(plot_netherlands("Friesland", c(actionsframe$x[[i]], actionsframe$y[[i]]), paste0(actionsframe$name[[i]],".png")))
+        if(debug){ message("plotting ",actionsframe$name[[i]], " with " ,c(actionsframe$x[[i]], actionsframe$y[i]))}
     }
 }
 ## testing
@@ -138,12 +138,23 @@ if(!dir.exists("friesland")){
 }
 
 movement <- matrix(c(seq(0, -1.0, -0.1), seq(0, 1.0, .1)),ncol = 2)
+# now this doesn't look so nice. So I need the first few sequences to be different
+movement <- matrix(c(c(0,-.1,-.2,-.2,-.3), c(0,.03,.05,.1,.15)) ,ncol = 2)
+movement2 <- matrix(c(seq(from = -.3, by = -.1, length.out = 14),seq(from = .2, by = .1, length.out = 14)), ncol = 2)
 
-plot_friesland_over_range(basename = "friesland/plot", movement, debug = TRUE)
+plot_friesland_over_range(basename = "friesland/plot", rbind(movement, movement2), debug = TRUE)
 
 
-
-
+### function to take all images in a folder in sequence and produce a gif 
+# with example from https://rud.is/b/2016/07/27/u-s-drought-animations-with-the-witchs-brew-purrr-broom-magick/
+make_gif_of_folder <- function(foldername, gifname){
+    list.files(path = foldername, full.names = TRUE,recursive = FALSE) %>% 
+    map(image_read) %>%
+        image_join() %>%
+        image_animate(fps=1, loop=1) %>%
+        image_write(gifname)
+}
+make_gif_of_folder("friesland", "test.gif")
 
 
 
