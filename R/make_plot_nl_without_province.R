@@ -68,8 +68,6 @@ move_province <- function(provincename, movement){
         filter(NAME_1 != !!provincename) %>% 
         filter(TYPE_1 != "Water body") 
     #rest %>% st_centroid() %>% st_as_text() 
-    
-        
     province <- NLD %>% 
         filter(NAME_1 == !!provincename) %>% 
         mutate(geometry = geometry + !!mov) %>% 
@@ -120,21 +118,32 @@ plot_netherlands("Friesland", c(0,0), "test1.png")
 plot_netherlands("Friesland", c(-1,1), "test2.png")
 
 ## create several plots over a range
-
-plot_friesland_over_range <- function(basename = "plot", movement_matrix, debug = FALSE){
-    if(any(is.na(movement_matrix))){stop("I cannot handle empty movements, there are NA's in movement_matrix")} 
-    if(NCOL(movement_matrix) != 2) stop("movement_matrix needs to have exactly 2 columns")
-    actionsframe <- data_frame(name = basename, x = movement_matrix[,1], y = movement_matrix[,2]) %>% 
-        mutate(rownumber = row_number(),
-                name = paste0(name, rownumber))
-    for (i in actionsframe$rownumber) {
-        suppressWarnings(plot_netherlands("Friesland", c(actionsframe$x[[i]], actionsframe$y[[i]]), paste0(actionsframe$name[[i]],".png")))
-        if(debug){ message("plotting ",actionsframe$name[[i]], " with " ,c(actionsframe$x[[i]], actionsframe$y[i]))}
+## 
+create_dir_if_necessary <- function(basename, debug = FALSE){
+    directory <- dirname(basename)
+    if(directory != "."){
+        if(!dir.exists(directory)){
+            if(debug){message("creating directory: ",directory)}
+            dir.create(directory)    # would be silly to create the directory twice, now wouldn't it?
+        }
     }
 }
-## testing
-if(!dir.exists("friesland")){
-    dir.create("friesland")    # would be silly to create the directory twice, now wouldn't it?
+
+
+
+plot_province_over_range <- function(basename = "plot", offset_matrix, province = "Friesland", debug = FALSE){
+    # create directory if it doesn't exist
+    create_dir_if_necessary(basename, debug = debug)
+    if(any(is.na(offset_matrix))){stop("I cannot handle empty movements, there are NA's in movement_matrix")} 
+    if(NCOL(offset_matrix) != 2) stop("movement_matrix needs to have exactly 2 columns")
+    actionsframe <- data_frame(x = offset_matrix[,1], y = offset_matrix[,2]) %>% 
+        mutate(rownumber = row_number())
+               #rownumber = formatC(rownumber, flag = 0,width = 4),
+    actionsframe$name <- paste0(basename, formatC(actionsframe$rownumber, flag = 0,width = 4))
+    for (i in actionsframe$rownumber) {
+        suppressWarnings(plot_netherlands(province, c(actionsframe$x[[i]], actionsframe$y[[i]]), paste0(actionsframe$name[[i]],".png")))
+        if(debug){ message("plotting ",actionsframe$name[[i]], " with " ,c(actionsframe$x[[i]], actionsframe$y[i]))}
+    }
 }
 
 movement <- matrix(c(seq(0, -1.0, -0.1), seq(0, 1.0, .1)),ncol = 2)
@@ -142,20 +151,22 @@ movement <- matrix(c(seq(0, -1.0, -0.1), seq(0, 1.0, .1)),ncol = 2)
 movement <- matrix(c(c(0,-.1,-.2,-.2,-.3), c(0,.03,.05,.1,.15)) ,ncol = 2)
 movement2 <- matrix(c(seq(from = -.3, by = -.1, length.out = 14),seq(from = .2, by = .1, length.out = 14)), ncol = 2)
 
-plot_friesland_over_range(basename = "friesland/plot", rbind(movement, movement2), debug = TRUE)
-
+plot_province_over_range(basename = "friesland/plot", rbind(movement, movement2),province = "Friesland", debug = TRUE)
+lnnh <- 10
+plot_province_over_range(basename = "NH/Noord-Holland",matrix(c(seq(from = 0,by = -.1, length.out = lnnh),rep(0,lnnh)),ncol = 2),province = "Noord-Holland",debug = TRUE)
 
 ### function to take all images in a folder in sequence and produce a gif 
 # with example from https://rud.is/b/2016/07/27/u-s-drought-animations-with-the-witchs-brew-purrr-broom-magick/
-make_gif_of_folder <- function(foldername, gifname){
+make_gif_of_folder <- function(foldername, gifname, fps = 1, loop =0){
     list.files(path = foldername, full.names = TRUE,recursive = FALSE) %>% 
     map(image_read) %>%
         image_join() %>%
-        image_animate(fps=1, loop=1) %>%
+        image_animate(fps=fps, loop=loop) %>%
         image_write(gifname)
 }
-make_gif_of_folder("friesland", "test.gif")
 
+make_gif_of_folder("friesland", "friesland/friesland.gif")
+make_gif_of_folder("NH", "noord-holland.gif")
 
 
 
