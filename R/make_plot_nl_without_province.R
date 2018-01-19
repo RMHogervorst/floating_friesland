@@ -87,10 +87,10 @@ dutchmasters_fill <- get_scale_fill(get_pal(dutchmasters))
 
 move_province("Friesland", c(-1.7,1.7)) %>% 
     ggplot()+
-    geom_sf(aes(fill = NAME_1),color = "grey80", alpha = 3/4)+
-    geom_text_repel(aes(X,Y, label = NAME_1), size = 3)+
+    geom_sf(aes(fill = NAME_1),color = "grey50", alpha = 3/4)+
+    geom_text_repel(aes(X,Y, label = NAME_1), size = 8)+
     lims(x = c(3.2,7.1), y = c(50.8,55))+
-    labs(x="", y = "", color = "")+
+    labs(x="", y = "", caption = "shapefiles from www.gadm.org", title = "Floating Friesland")+
     dutchmasters_fill("little_street")+
     #theme_grey()+
     theme( legend.position = "empty", # we already labeled the provinces
@@ -99,10 +99,59 @@ move_province("Friesland", c(-1.7,1.7)) %>%
 # ideal path 0,0    -.4,.3     -.4, .4 , equal numbers  tot 1.6
 ## maybe a function where we make plots ?  and only apply a df with x and y coordinates?
 # make list of ggplots
-frames <- lapply(as.list(front), function(x) image_composite(image_in, x))
+#frames <- lapply(as.list(front), function(x) image_composite(image_in, x))
 
-## 
+# make function to create plot
+plot_netherlands <- function(province, movement, filename){
+    {move_province(provincename = province, movement = movement) %>% 
+        ggplot()+
+        geom_sf(aes(fill = NAME_1),color = "grey50", alpha = 3/4)+
+        geom_text_repel(aes(X,Y, label = NAME_1), size = 7)+
+        lims(x = c(3.2,7.1), y = c(50.8,55))+
+        labs(x="", y = "", caption = "shapefiles from www.gadm.org", title = "Floating Friesland")+
+        dutchmasters_fill("little_street")+
+        theme( legend.position = "empty", # we already labeled the provinces
+               panel.grid.major = element_line(colour = "grey80"))} %>% 
+        ggsave(filename = filename, width = 150, height = 250, units = "mm")
+    #300 x 506
+}
+
+plot_netherlands("Friesland", c(0,0), "test1.png")
+plot_netherlands("Friesland", c(-1,1), "test2.png")
+
+## create several plots over a range
+
+plot_friesland_over_range <- function(basename = "plot", movement_matrix, debug = FALSE){
+    if(any(is.na(movement_matrix))){stop("I cannot handle empty movements, there are NA's in movement_matrix")} 
+    if(NCOL(movement_matrix) != 2) stop("movement_matrix needs to have exactly 2 columns")
+    actionsframe <- data_frame(name = basename, x = movement_matrix[,1], y = movement_matrix[,2]) %>% 
+        mutate(rownumber = row_number(),
+                name = paste0(name, rownumber))
+    for (i in actionsframe$rownumber) {
+        plot_netherlands("Friesland", c(actionsframe$x[[i]], actionsframe$y[[i]]), paste0(actionsframe$name[[i]],".png"))
+        if(debug){ message("plotting ",actionsframe$name[[1]], "with " ,c(actionsframe$x[[i]], actionsframe$y[i]))}
+    }
+}
+## testing
+if(!dir.exists("friesland")){
+    dir.create("friesland")    # would be silly to create the directory twice, now wouldn't it?
+}
+
+movement <- matrix(c(seq(0, -1.0, -0.1), seq(0, 1.0, .1)),ncol = 2)
+
+plot_friesland_over_range(basename = "friesland/plot", movement, debug = TRUE)
+
+
+
+
+
+
+
+
 ## alternative would be to move the islands seperately?
 
 
-#perhaps try with germany and belgium against ?
+
+
+# perhaps try with germany and belgium plotted filled in at side and bottom ?
+# if we keep the limits the same everything else would just fall away
