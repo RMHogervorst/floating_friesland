@@ -1,27 +1,25 @@
 ---
-title: "README"
+title: "Floating Friesland"
 author: "Roel M. Hogervorst"
 date: "January 17, 2018"
-output: html_document
+output: github_document
 ---
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 
 In this project I'm trying to answer the question:
 
 > could we dig up Friesland (or any other Dutch province) and float it away?
 
-![an image of the Netherlands without Friesland]()
+![friesland floating away](friesland.gif)
+
 
 You might think: "Where did you get that ridiculous idea from?".
 
 Friesland is one of the provinces of the Netherlands. 
-The Frisians have a distinct culture and (internationally recognized and also official) language. 
+The Frisians have a distinct culture and ((inter)nationally recognized ) language. 
+So Frisian is a language in schools, all the roadsigns are in two languages etc.
 Every once in a while when the newspapers have nothing else to record they will try to sensationalize news from 
-Friesland. And sometimes that leads to someone saying: "why don't we just dig the province out and float it away?" [1].
+Friesland. And sometimes that leads to someone commenting: "why don't we just dig the province out and float it away?" [1].
 
 And although the idea is ridiculous, it got me thinking...
 
@@ -34,11 +32,34 @@ So today we will determine:
 - if we don't float it away, can we make a mountain for skiing?
 
 
-
-
-
-
 [1]: It's better in Dutch: "waarom steken we die provincie niet gewoon af en laten we die wegdrijven?"
 
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
+
+```{r, eval = FALSE}
+library(tidyverse)
+library(sf)
+library(magick)
+```
+
+## simplest case
+
+Use the total area of the province is 3.341,70 km2 but according to the english wikipedia it is
+different: 3,250 km2 
+
+I will assume the ground is flat (because the country is really flat, also it is quite difficult to take height into account)
+
+We will just dig everything away. 
+
+### total volume of ground 
+Let us just assume 
+
+
+## Only Friesland?  
+No of course we can also float other provinces away
+
+![North Holland floating](noord-holland.gif)
