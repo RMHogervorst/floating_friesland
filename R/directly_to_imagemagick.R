@@ -64,8 +64,6 @@ plot_netherlands <- function(province, movement){
 # This example from jeroen ooms and Bob rudis uses ticks (which is an awesome feature I did not know was in dplyr)
 # it uses purr:: walk to go over values and make a side effect: printing to the image magick thing
 
-# set up print location 
-frames <- image_graph(width = 1500, height = 900, res = 300)
 
 plot_province_over_range <- function(offset_matrix, province = "Friesland", debug = FALSE){
     
@@ -95,8 +93,12 @@ Friesland_moves <- rbind(
     matrix(c(seq(from = -.3, by = -.1, length.out = 14),seq(from = .2, by = .1, length.out = 14)), ncol = 2)
 )
 
+# set up print location 
+frames <- image_graph(width = 1500, height = 2500, res = 300, pointsize = 5)
+
 
 plot_province_over_range(offset_matrix = Friesland_moves, province = "Friesland")
 
 # animate the foliage
-image_animate(frames, 1)
+image_animate(frames, 1) %>% 
+    image_write(path = "friesland.gif")
