@@ -3,6 +3,8 @@ Floating Friesland
 Roel M. Hogervorst
 January 17, 2018
 
+[![Project Status: concept – Minimal or no implementation has been done yet, or the repository is only intended to be a limited example, demo, or proof-of-concept.](http://www.repostatus.org/badges/latest/concept.svg)](http://www.repostatus.org/#concept)
+
 In this project I'm trying to answer the question:
 
 > could we dig up Friesland (or any other Dutch province) and float it away?
@@ -15,7 +17,7 @@ Friesland is one of the provinces of the Netherlands. The Frisians have a distin
 
 And although the idea is ridiculous, it got me thinking...
 
-Can it be done?
+Can it be done? Can we lift up an entire province and move it away? How expensive would it be?
 
 So today we will determine:
 
@@ -40,7 +42,9 @@ We will just dig everything away.
 
 ### total volume of ground
 
-Let us just assume
+Let us just assume everything is flat, or if it issn't we are very precise in digging it up. we dig down 5 meters (don't know why) if we dig up 5 meters below the ground we need to move 0.016705 km^3 (cubic kilometers) which according to wolfram alpha is ≈ 0.61 × volume of concrete used in the construction of the Three Gorges Dam (≈ 2.72×10^7 m^3 )
+
+0.016705 \* 10 e9 = 16 705 000 m3 km^3 = 1 000 000 000 m3
 
 Only Friesland?
 ---------------

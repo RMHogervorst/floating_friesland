@@ -165,7 +165,7 @@ make_gif_of_folder <- function(foldername, gifname, fps = 1, loop =0){
         image_write(gifname)
 }
 
-make_gif_of_folder("friesland", "friesland/friesland.gif")
+make_gif_of_folder("friesland", "friesland.gif")
 make_gif_of_folder("NH", "noord-holland.gif")
 
 
