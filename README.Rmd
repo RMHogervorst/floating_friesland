@@ -18,7 +18,7 @@ You might think: "Where did you get that ridiculous idea from?".
 
 Friesland is one of the provinces of the Netherlands. 
 The Frisians have a distinct culture and ((inter)nationally recognized ) language. 
-So Frisian is a language in schools, all the roadsigns are in two languages etc.
+So Frisian is a language in Frisian schools, all the roadsigns in that province are in two languages etc.
 Every once in a while when the newspapers have nothing else to record they will try to sensationalize news from 
 Friesland. And sometimes that leads to someone commenting: "why don't we just dig the province out and float it away?" [1].
 
@@ -26,7 +26,7 @@ And although the idea is ridiculous, it got me thinking...
 
 Can it be done? Can we lift up an entire province and move it away? How expensive would it be? 
 
-So today we will determine:
+So today (*actually it took me a month*) we will determine:
 
 - Can we dig away and float an entire province
 - how long would it take and how much would it cost?
@@ -35,6 +35,10 @@ So today we will determine:
 
 [1]: It's better in Dutch: "waarom steken we die provincie niet gewoon af en laten we die wegdrijven?"
 
+
+The Dutch are famous for reclaiming land from the sea so these sorts of constructions are within our reach. 
+
+Also: this is a nice explanation of how you could do a rough sketchout of a problem. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -54,23 +58,87 @@ different: 3,250 km2
 
 I will assume the ground is flat (because the country is really flat, also it is quite difficult to take height into account)
 
-We will just dig everything away. 
+We will just dig everything away. I don't take the islands into account, we 
+just move everything. 
 
 ### total volume of ground 
-Let us just assume everything is flat, or if it issn't we are very precise in digging it up. 
-we dig down 5 meters (don't know why)
-if we dig up 5 meters below the ground we need to move  0.016705 km^3 (cubic kilometers) 
+Let us just assume everything is flat, or if it isn't we are very precise in digging it up. We dig down 5 meters (Seems a nice depth, is also the average depth of the IJselmeer). It is 
+also convenient, because most of waterpipes and electricity is in the first few meters. We could just unplug it, and sort of 
+reconnect it?
+
+If we dig up 5 meters below the ground we need to move  0.016705 km^3 (cubic kilometers) 
 which according to wolfram alpha is  ≈ 0.61 × volume of concrete used in the construction of the Three Gorges Dam (≈ 2.72×10^7 m^3 )
 
-0.016705 * 10 e9 = 16 705 000 m3
-km^3 = 1 000 000 000 m3
+Wolfram alpha has other nice features (which we could have calclated ourselves, but I just never thought about them): If we put all the dirt into a cube, the edges of that cube would be
+256 meters (0.16 miles or 839 feet for the Americans).
+If we would put all the dirt into a ball it would have a radius
+of 159 meters (520 feet). It's not that much really. 
 
+##  So how much would it cost?
+This is quite difficult to estimate. Frankly no one has moved a piece of land, people have created new land or excavated other lands, so we have some estimates: 
+We will use the construction
+estimates for the Palm Jumeirah in Dubai. ![](https://upload.wikimedia.org/wikipedia/commons/4/48/Dubai_new_developments.png) That artificial island is 5 * 5 kilometers big, and was sort of finished after 5 years.
 
+According to some sources the island is build from 5.5 million cubic metres of rock, 94 million cubc metres of sand, and 210 million cubic metres of rock sand and limestone.
 
+If we would create something the size of friesland (16 705 000 m3), it would be 12.57109 times less volume than Palm Jumeirah. 
 
+The total cost of construction is approximately 12.3 billion US dollars. If we take this almost 13 (12.57...) times smaller volume as rough estimate, and divide the total cost of the Palm by that number, the total cost for creating Friesland would be something like 0.9784354 billion US dollars.  Which is according
+to some (some 2011 exchange rate) = 0.9428204 euro. 
+
+We can also use some other estimates: how much does it cost to dig away some ground (we need to hire someone to do that), I only found references to digging away 15 cm deep and 1m2 wide. That is approximately 10/15 euro per square meter.
+
+So 1 m3 would be 
+
+```
+5 * 12.5 = 62.5 
+5 * 17.5 = 87.5 
+```
+
+So: 16 705 000 m3
+
+```
+5 *17.5 * 16705000 = 1 461 687 500
+1.5 billion euros
+5 *12.5 * 16705000 = 1 044 062 500
+```
+
+Approximately 1 billion euros, compared to our other approximation .94.. billion. So sort of same cost!
+
+Digging all the ground up would cost approximately 1 billion euros. This is of course not the same as making the province float. Perhaps we can use tunnelboring machines to dig away the top layer and add floatation devices underneath? 
+
+Perhaps Elon Musk is interested?
+
+Some estimates are that the cost of such a machine is 160 mln per km, and the tunnel is approximately 15 meter wide. 
+So 160 million per 1000*15 = 15000 m2. == 0.015 km2.
+
+`3,250 / 0.015 * 160 = 34666667 million euros`
+
+Which is 34666.667 billion Euros. eh, okay, maybe we should just dig everything up, and move it and dump it again? 
+That is way cheaper! If the digging, moving and dumping would 
+all cost 1 billion euro, we could do that at least 11555 times.
+
+## Will it float?
+
+If something floats, depends on the total weight and displacement of the water. 
+
+*To be continuoed*
 
 
 ## Only Friesland?  
 No of course we can also float other provinces away
 
 ![North Holland floating](noord-holland.gif)
+
+
+
+
+Sources:
+
+- image of Palms Dubai: Wikipedia [By W like wiki (Dubai Bauprojekte (crop).png by User:Lencer) [CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)], via Wikimedia Commons]
+- https://www.cntraveler.com/stories/2015-11-23/the-real-story-behind-dubai-palm-islands
+- http://www.dubaivacationtrips.com/islands.php
+-https://en.wikipedia.org/wiki/Palm_Islands 
+
+- Prices: https://www.hovenier-gigant.nl/tuin-afgraven-kosten/, & https://www.offerteadviseur.nl/categorie/tuin/hovenier/kosten-tuin-uitgraven/
+- densities https://gwwmaterialen.blogspot.nl/p/soortelijk-gewicht.html
